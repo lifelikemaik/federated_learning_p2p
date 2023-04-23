@@ -1,3 +1,5 @@
+# from docs
+torch==1.11.0
 pytorch-lightning
 pytest
 pytest-cov
