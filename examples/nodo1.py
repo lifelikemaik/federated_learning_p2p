@@ -22,14 +22,16 @@ import sys
 
 if __name__ == "__main__":
 
-    if len(sys.argv) != 3:
-        print("Usage: python3 nodo2.py <self_host> <self_port>")
-        sys.exit(1)
+#    if len(sys.argv) != 3:
+#        print("Usage: python3 nodo2.py <self_host> <self_port>")
+#        sys.exit(1)
 
     node = Node(
         MLP(),
         MnistFederatedDM(sub_id=0, number_sub=2),
-        host=sys.argv[1],
-        port=int(sys.argv[2]),
+        # host=sys.argv[1],
+        # port=int(sys.argv[2]),
+	host="127.0.0.1",
+	port=4321
     )
     node.start()
