@@ -28,7 +28,7 @@ def mnist_execution(n, start, simulation, conntect_to=None, iid=True):
     nodes = []
     for i in range(n):
         node = Node(
-            MLP(),
+            CNN(),
             MnistFederatedDM(sub_id=i, number_sub=n, iid=iid),
             simulation=simulation,
         )
