@@ -5,7 +5,7 @@ pytest
 pytest-cov
 torchmetrics==0.7.3
 torchvision==0.12.0
-sphinx
+sphinx==6.2.1
 myst-parser
 furo
 p2pfl
