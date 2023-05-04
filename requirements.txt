@@ -4,7 +4,7 @@ pytorch-lightning==1.6.5
 pytest
 pytest-cov
 torchmetrics==0.7.3
-torchvision
+torchvision==0.12.0
 sphinx
 myst-parser
 furo
