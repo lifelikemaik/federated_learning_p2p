@@ -28,17 +28,18 @@ def mnist_execution(n, start, simulation, conntect_to=None, iid=True):
     nodes = []
     for i in range(n):
         node = Node(
-            CNN(),
+            # CNN(),
+            MLP(),
             MnistFederatedDM(sub_id=i, number_sub=n, iid=iid),
             simulation=simulation,
         )
         config = {
-            "model": "CNN",
+            "model": "MLP",
             "namenode": "node_"+str(i)
         }
-        wandb.init(project="p2pfl", config=config)
+        wandb.init(project="p2pfl", config=config, sync_tensorboard=True)
         node.start()
-        wandb.watch(node.model, log="all")
+        wandb.watch(node.learner.model, log="all", log_freq=50)
         nodes.append(node)
 
     # Connect other network
@@ -79,5 +80,5 @@ def mnist_execution(n, start, simulation, conntect_to=None, iid=True):
 
 if __name__ == "__main__":
     for _ in range(50):
-        mnist_execution(1, True, True)
+        mnist_execution(6, True, True)
         break
