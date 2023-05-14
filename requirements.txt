@@ -12,3 +12,4 @@ furo
 flask
 pycryptodome
 black
+wandb
