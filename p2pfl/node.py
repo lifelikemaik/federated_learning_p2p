@@ -20,6 +20,10 @@ import random
 import threading
 import logging
 import time
+import os
+import re
+import json
+import requests
 from p2pfl.base_node import BaseNode
 from p2pfl.command import *
 from p2pfl.communication_protocol import CommunicationProtocol
@@ -582,7 +586,7 @@ class Node(BaseNode):
         # Set Next Round
         self.aggregator.clear()
         self.learner.finalize_round()  # revisar x si esto pueiera quedar mejor
-        self.round = self.round + 1
+        self.round = self.round + 1 # maybe this should be in the end of the function
         # Clear node aggregation
         for nc in self.get_neighbors():
             nc.clear_models_aggregated()
@@ -594,7 +598,8 @@ class Node(BaseNode):
             )
         )
         if self.round < self.totalrounds:
-            self.__train_step()
+            # self.__train_step()
+            print("Round: ", self.round)
         else:
             # At end, all nodes compute metrics
             self.__evaluate()
@@ -607,6 +612,65 @@ class Node(BaseNode):
                     self.get_name(), self.round, self.totalrounds
                 )
             )
+
+
+
+        # check if node is leader and get other leaders
+        # if self.round < self.totalrounds:
+        #     ipaddr = (
+        #         os.popen(
+        #             "ip addr show eth0 | grep \"\<inet\>\" | awk '{ print $2 }' | awk -F \"/\" '{ print $1 }'"
+        #         )
+        #         .read()
+        #         .strip()
+        #     )
+        #     vmNumber = re.findall(r"\d+", os.uname()[1])[0]
+        #     url = f"http://{ipaddr}:8888/getLeader"
+        #     otherLeaderIPs = []
+        #     otherLeader = set()
+        #     otherLeaderModels = []
+        #     try:
+        #         getLeader = requests.get(url)
+        #         # print(response.text) # Dauert lange
+        #         if int(getLeader.text) == int(vmNumber):
+        #             # node is leader
+        #             # duplicate code, because no cross import possible
+                    
+        #             f = open("/root/test.json", "r")  # local
+        #             f = f.read().replace('"', "").replace("'", '"')
+        #             vm_json = json.dumps(json.loads(f), sort_keys=True)
+        #             vms = json.loads(vm_json)
+        #             ips = []
+        #             for _, ip_address in vms.items():
+        #                 ips.append(ip_address[0])  # --> list only with ips, use index
+        #             for ip in ips:
+        #                 url = f"http://{ip}:8888/getLeader"
+        #                 try:
+        #                     getLeader = requests.get(url)
+        #                     otherLeader.add(getLeader.text)
+        #                 except requests.exceptions.RequestException as e:
+        #                     print(f"Error occurred while sending request to {ip}: {e}")
+        #             for number, ip_address in vms.items():
+        #                 if number in otherLeader: # make this sense?
+        #                     otherLeaderIPs.append(ip_address[0])
+        #     except requests.exceptions.RequestException as e:
+        #         print(f"Error occurred while sending request to {ipaddr}: {e}")
+            
+        #     for ip in otherLeaderIPs:
+        #         # get model from other leader to aggregate like FedAvg
+        #         # look at aggreate function
+        #         url = f"http://{ip}:8888/getModel"
+        #         try:
+        #             getModel = requests.get(url, stream=True)
+        #             # next line might work, but not tested yet!!!!!!
+        #             # maybe with requests STREAM binary data
+        #             # self.aggregator.aggregate(getModel.text) ?????
+        #             # also chunked or not chunked?
+        #             otherLeaderModels.append(getModel.content)
+        #         except requests.exceptions.RequestException as e:
+        #             print(f"Error occurred while sending request to {ip}: {e}")
+
+
 
     #########################
     #    Model Gossiping    #
