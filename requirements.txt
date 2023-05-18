@@ -1,6 +1,6 @@
 # from docs
-torch==1.11.0
 pytorch-lightning==1.6.5
+torch==1.11.0
 pytest
 pytest-cov
 torchmetrics==0.7.3
