@@ -578,6 +578,9 @@ class Node(BaseNode):
     #    Round finish    #
     ######################
 
+    def manual_train_step(self):
+        self.__train_step()
+
     def __on_round_finished(self):
         # Remove trainset connections
         for nc in self.get_neighbors():
