@@ -326,12 +326,12 @@ class Node(BaseNode):
             except Exception as e:
                 self.stop()
                 raise (e)
-        else:
-            logging.error(
-                "({}) Tried to add a model while learning is not running".format(
-                    self.get_name()
-                )
-            )
+        # else:
+        #     logging.error(
+        #         "({}) Tried to add a model while learning is not running".format(
+        #             self.get_name()
+        #         )
+        #     )
 
     #######################
     #    Trainig Steps    #
@@ -370,15 +370,15 @@ class Node(BaseNode):
                 self.broadcast(
                     CommunicationProtocol.build_models_aggregated_msg([self.get_name()])
                 )  # Notify aggregation
-                self.__gossip_model_aggregation()
-        else:
+                # self.__gossip_model_aggregation()
+        # else:
 
             # Set Models To Aggregate
-            self.aggregator.set_waiting_aggregated_model()
+            # self.aggregator.set_waiting_aggregated_model()
 
         # Gossip aggregated model (also syncrhonizes nodes)
-        if self.round is not None:
-            self.__gossip_model_difusion()
+        # if self.round is not None:
+            # self.__gossip_model_difusion()
 
         # Finish round
         if self.round is not None:
