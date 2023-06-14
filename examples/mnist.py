@@ -20,21 +20,22 @@ from p2pfl.learning.pytorch.mnist_examples.models.cnn import CNN
 from p2pfl.learning.pytorch.mnist_examples.models.mlp import MLP
 from p2pfl.node import Node
 import time
+from datetime import datetime
 
 
-def mnist_execution(n, start, simulation, conntect_to=None, iid=True):
+def mnist_execution(n, start, simulation, conntect_to=None, iid=False):
 
     # Node Creation
     nodes = []
     for i in range(n):
         node = Node(
-            # CNN(),
-            MLP(),
+            CNN(),
+            #MLP(),
             MnistFederatedDM(sub_id=i, number_sub=n, iid=iid),
             simulation=simulation,
         )
         config = {
-            "model": "MLP",
+            "model": "CNN",
             "namenode": "node_"+str(i)
         }
         wandb.init(project="p2pfl", config=config, sync_tensorboard=True)
@@ -60,7 +61,7 @@ def mnist_execution(n, start, simulation, conntect_to=None, iid=True):
 
     # Start Learning
     if start:
-        nodes[0].set_start_learning(rounds=10, epochs=2)
+        nodes[0].set_start_learning(rounds=5, epochs=1)
     else:
         time.sleep(20)
 
@@ -79,6 +80,13 @@ def mnist_execution(n, start, simulation, conntect_to=None, iid=True):
 
 
 if __name__ == "__main__":
-    for _ in range(50):
-        mnist_execution(6, True, True)
-        break
+    # for _ in range(50):
+    wandb.login(key="a2d90cdeb8de7e5e4f8baf1702119bcfee78d1ee")
+    wandb.init(
+        project="p2pflCFL",
+        sync_tensorboard=True,
+        name="CFL "
+        + str(datetime.now().strftime("%H:%M")),
+    )
+    mnist_execution(6, True, True)
+        # break
