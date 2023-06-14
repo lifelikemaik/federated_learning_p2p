@@ -16,7 +16,7 @@ def centralized_train():
     wandb.init(project="p2pfl", sync_tensorboard=True)
     node.start()
     wandb.watch(node.learner.model, log="all", log_freq=50)
-    node.set_start_learning(rounds=10, epochs=4)
+    node.set_start_learning(rounds=10, epochs=1)
 
 
 
