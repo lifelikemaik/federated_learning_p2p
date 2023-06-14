@@ -297,11 +297,12 @@ class Node(BaseNode):
                         )
                         if models_added is not None:
                             # CAREFUL RARE BUG at MACBOOCK: When CPU is high, only new nodes will be sent.
-                            self.broadcast(
-                                CommunicationProtocol.build_models_aggregated_msg(
-                                    models_added
-                                )
-                            )
+                            # self.broadcast(
+                            #     CommunicationProtocol.build_models_aggregated_msg(
+                            #         models_added
+                            #     )
+                            # )
+                            logging.info("models_added is not None LINE 298")
                     else:
                         raise ModelNotMatchingError("Not matching models")
                 else:
