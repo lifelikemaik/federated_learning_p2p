@@ -236,7 +236,7 @@ class Node(BaseNode):
             begin = time.time()
 
             # Wait and gossip model inicialization
-            self.__gossip_model_difusion(initialization=True)
+            # self.__gossip_model_difusion(initialization=True)
 
             # Wait to guarantee new connection heartbeats convergence and fix neighbors
             wait_time = Settings.WAIT_HEARTBEATS_CONVERGENCE - (time.time() - begin)

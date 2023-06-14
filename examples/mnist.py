@@ -34,11 +34,11 @@ def mnist_execution(n, start, simulation, conntect_to=None, iid=False):
             MnistFederatedDM(sub_id=i, number_sub=n, iid=iid),
             simulation=simulation,
         )
-        config = {
-            "model": "CNN",
-            "namenode": "node_"+str(i)
-        }
-        wandb.init(project="p2pfl", config=config, sync_tensorboard=True)
+        # config = {
+        #     "model": "CNN",
+        #     "namenode": "node_"+str(i)
+        # }
+        # wandb.init(project="p2pfl", config=config, sync_tensorboard=True)
         node.start()
         wandb.watch(node.learner.model, log="all", log_freq=50)
         nodes.append(node)
@@ -61,7 +61,7 @@ def mnist_execution(n, start, simulation, conntect_to=None, iid=False):
 
     # Start Learning
     if start:
-        nodes[0].set_start_learning(rounds=5, epochs=1)
+        nodes[0].set_start_learning(rounds=5, epochs=4)
     else:
         time.sleep(20)
 
