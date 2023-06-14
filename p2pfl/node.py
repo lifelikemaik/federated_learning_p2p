@@ -323,9 +323,9 @@ class Node(BaseNode):
                 logging.error("({}) Models not matching.".format(self.get_name()))
                 self.stop()
 
-            except Exception as e:
-                self.stop()
-                raise (e)
+            # except Exception as e:
+            #     self.stop()
+            #     raise (e)
         # else:
         #     logging.error(
         #         "({}) Tried to add a model while learning is not running".format(
