@@ -50,15 +50,15 @@ class Settings:
         BLOCK_SIZE = new_value
 
     # TIMEOUT'S
-    NODE_TIMEOUT = 20
+    NODE_TIMEOUT = 2000
     """
     Timeout (seconds) for a node to be considered dead.
     """
-    VOTE_TIMEOUT = 60
+    VOTE_TIMEOUT = 6000
     """
     Timeout (seconds) for a node to wait for a vote.
     """
-    AGGREGATION_TIMEOUT = 60
+    AGGREGATION_TIMEOUT = 6000
     """
     Timeout (seconds) for a node to wait for other models. Timeout starts when the first model is added.
     """
@@ -82,7 +82,7 @@ class Settings:
     """
     Size of the training set.
     """
-    TRAIN_SET_CONNECT_TIMEOUT = 5
+    TRAIN_SET_CONNECT_TIMEOUT = 500
     """
     Timeout (seconds) to wait for a node to connect to the training set.
     """
