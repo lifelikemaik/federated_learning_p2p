@@ -358,8 +358,9 @@ class Node(BaseNode):
 
             # Train
             if self.round is not None:
+                start_time = time.time()
                 self.__train()
-
+                logging.info("step done for round " + str(self.round) + " in " + str(time.time() - start_time) + "s")
             # Aggregate Model
             if self.round is not None:
                 self.aggregator.add_model(
